@@ -5,7 +5,7 @@ from typing import List, Dict, Union
 
 class BloomFilter:
     """
-    Проста реалізація фільтра Блума для швидкої, імовірнісної перевірки наявності елементів.
+    Реалізація фільтра Блума для швидкої, імовірнісної перевірки наявності елементів.
     Використовується для економії пам'яті, оскільки не зберігає самі елементи.
     """
     def __init__(self, size: int, num_hashes: int):
@@ -112,28 +112,25 @@ def check_password_uniqueness(bloom_filter: BloomFilter, new_passwords: List[Uni
 
 # ----------------------------------------------------------------------
 
-if __name__ == "__main__":
-    # Блок виконання прикладу
-    print("--- Запуск перевірки унікальності паролів за допомогою фільтра Блума ---")
-    
-    # Ініціалізація фільтра Блума з параметрами, що відповідають прикладу.
+if __name__ == "__main__":    
+    # print("--- Запуск перевірки унікальності паролів за допомогою фільтра Блума ---")     
+    # Ініціалізація фільтра Блума 
     bloom = BloomFilter(size=1000, num_hashes=3)
 
     # Список паролів, які вважаються вже існуючими (були використані).
     existing_passwords = ["password123", "admin123", "qwerty123"]
-    print(f"\n1. Додавання існуючих паролів до фільтра: {existing_passwords}")
+    # print(f"\n1. Додавання існуючих паролів до фільтра: {existing_passwords}")
     for password in existing_passwords:
         bloom.add(password)
     
     # Список нових паролів для перевірки. Містить дублікати ("password123", "admin123") та некоректні значення.
     new_passwords_to_check = ["password123", "newpassword", "admin123", "guest", "", None]
-    print(f"2. Перевірка списку нових паролів: {new_passwords_to_check}\n")
-    
+    # print(f"2. Перевірка списку нових паролів: {new_passwords_to_check}\n")     
     # Виклик основної функції перевірки.
     results = check_password_uniqueness(bloom, new_passwords_to_check)
 
     # Виведення результатів
-    print("--- 3. Результати перевірки ---")
+    print("--- Результати перевірки ---")
     for password, status in results.items():
         # Форматування виводу для коректного відображення порожнього рядка та None.
         display_password = f"'{password}'" if password not in ("None", "") else f"({password})"
